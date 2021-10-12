@@ -146,7 +146,7 @@ const SampleComponent = () => {
 
                     <div aria-hidden="true" className="absolute -inset-px rounded-md border-2 border-gray-200 pointer-events-none">
                       <svg className="absolute inset-0 w-full h-full text-gray-200 stroke-2" viewBox="0 0 100 100" preserveAspectRatio="none" stroke="currentColor">
-                        <line x1="0" y1="100" x2="100" y2="0" vector-effect="non-scaling-stroke" />
+                        <line x1="0" y1="100" x2="100" y2="0" />
                       </svg>
                     </div>
                   </label>
