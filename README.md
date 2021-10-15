@@ -7,14 +7,15 @@
 - next
 - jest
 
+### node version
+16.4.0^
+
 ### install
 ```
 yarn install
 ```
 
-
-### unit test
-
+### run
 ```
- yarn run jest
+yarn dev
 ```
