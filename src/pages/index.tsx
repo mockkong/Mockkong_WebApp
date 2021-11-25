@@ -2,7 +2,7 @@ import Container from '../components/container';
 import MockkongPlan from '../components/mockkong/plan';
 import Layout from '../components/layout';
 import Head from 'next/head';
-import Counter from '../features/Counter/Counter'
+import Counter from '../features/counter/Counter'
 
 export default function Index({ allPosts }) {
   const heroPost = allPosts[0]
