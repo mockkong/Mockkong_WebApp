@@ -1,8 +1,8 @@
 import React from 'react'
 import 'tailwindcss/tailwind.css'
-import GoogleButton from '../components/sns-login/GoogleButton';
+import GoogleButton from './GoogleButton';
 
-function SignIn() {
+function SignIn({...props}: any) {
   const onSocial = (data: any) => {
     console.log('login', data);
   }

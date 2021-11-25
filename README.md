@@ -15,6 +15,11 @@
 yarn install
 ```
 
+### file settings
+```
+.env.local 추가 필요 
+```
+
 ### run
 ```
 yarn dev
