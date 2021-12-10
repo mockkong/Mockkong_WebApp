@@ -1,4 +1,4 @@
-import '../styles/index.css'
+// import '../styles/index.css'
 
 import { Provider } from 'react-redux'
 import type { AppProps } from 'next/app'

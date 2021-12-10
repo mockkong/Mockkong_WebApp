@@ -24,8 +24,7 @@ export default function Index({ allPosts }) {
             />
           )}
         </Container>
-
-        <Counter />
+        {/* <Counter /> */}
       </Layout>
     </>
   )
