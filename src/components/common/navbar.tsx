@@ -1,12 +1,12 @@
-import React from 'react'
-import 'tailwindcss/tailwind.css'
-import SignIn from '../sign/SignIn'
+import React from 'react';
+import SignIn from '../sign/SignIn';
+import { CommonStyled } from './CommonStyled';
 
 function Navbar({...props}: any) {
   return (
-    <header>
+    <CommonStyled.NavBar>
       <SignIn />
-    </header>
+    </CommonStyled.NavBar>
   )
 }
 

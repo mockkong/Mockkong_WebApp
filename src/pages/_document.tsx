@@ -1,4 +1,5 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document'
+import Document, { Html, Head, Main, NextScript } from 'next/document';
+import { getCssText } from '../stitches.config';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -8,8 +9,10 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html>
-        <Head />
+      <Html lang="ko">
+        <Head>
+          <style id="stitchesCss" dangerouslySetInnerHTML={{ __html: getCssText() }} />
+        </Head>
         <body>
           <Main />
           <NextScript />

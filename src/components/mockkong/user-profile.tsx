@@ -1,5 +1,4 @@
-import React from 'react'
-import 'tailwindcss/tailwind.css'
+import React from 'react';
 
 function UserProfile({...props}: any) {
   return (

@@ -1,10 +1,13 @@
 
+
 ### used
 - react
 - redux
 - typescript
-- tailwindcss
 - next
+- @stitches/react
+  - Overview: https://stitches.dev/docs/introduction
+  - SSR css: https://stitches.dev/docs/server-side-rendering
 - jest
 
 ### node version
@@ -24,3 +27,18 @@ yarn install
 ```
 yarn dev
 ```
+
+### view
+http://localhost:3000
+
+<br/>
+<br/>
+
+# Change log
+2021.12.12 
+- added @stitces/react
+- added reset css
+- added global css
+- remove tailwind
+
+

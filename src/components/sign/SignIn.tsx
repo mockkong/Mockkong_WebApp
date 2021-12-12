@@ -1,5 +1,4 @@
-import React from 'react'
-import 'tailwindcss/tailwind.css'
+import React from 'react';
 import GoogleButton from './GoogleButton';
 
 function SignIn({...props}: any) {
