@@ -1,3 +1,13 @@
+import { styled } from "@stitches/react";
+
+const ContainerStyled = styled('div', {
+  display: 'flex',
+})
+
 export default function Container({ children }) {
-  return <div className="container mx-auto px-5">{children}</div>
+  return (
+    <ContainerStyled>
+      {children}
+    </ContainerStyled>
+  )
 }

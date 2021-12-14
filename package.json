@@ -13,6 +13,9 @@
     "test": "jest"
   },
   "dependencies": {
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
+    "@mui/material": "^5.2.3",
     "@reduxjs/toolkit": "^1.6.2",
     "autoprefixer": "^10.3.6",
     "axios": "^0.23.0",
@@ -25,10 +28,10 @@
     "redux": "^4.1.1"
   },
   "devDependencies": {
+    "@stitches/react": "^1.2.6",
     "@types/react": "^17.0.27",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
-    "@stitches/react": "^1.2.6",
     "babel-cli": "^6.26.0",
     "eslint": "^8.3.0",
     "eslint-config-airbnb": "^19.0.1",
