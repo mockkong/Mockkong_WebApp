@@ -1,7 +1,9 @@
 import UserProfile from './UserProfile';
-import Plans from './Plans';
+import AIRecommendGoals from './AIRecommendGoals';
+import Goals from './Goals';
 
 export {
   UserProfile,
-  Plans
+  AIRecommendGoals,
+  Goals
 }

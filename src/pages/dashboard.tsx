@@ -2,10 +2,10 @@ import Head from 'next/head';
 import Layout from '../components/Layout';
 import Container from '../components/Container';
 import * as Mockkong from '../components/mockkong';
-import Plans from '../contexts/sampleData/samplePlans.json';
+import sampleGoals from '../contexts/sampleData/sampleGoals.json';
 
 export default function Dashboard({ ...props }) {
-  const { plans } = props.data;
+  const { AIRecommendGoals, goals } = props.data;
 
   return (
     <Layout>
@@ -13,16 +13,26 @@ export default function Dashboard({ ...props }) {
         <title>Next.js Blog Example</title>
       </Head>
       <Container>
-        <Mockkong.UserProfile />
-        <Mockkong.Plans data={plans}/>
+        <div>
+          <Mockkong.UserProfile />
+        </div>
+        <div>
+          <Mockkong.AIRecommendGoals title="AI Recommend Goals" data={AIRecommendGoals}/>
+          <Mockkong.Goals data={goals}/>
+        </div>
       </Container>
     </Layout>
   )
 }
 
 export async function getStaticProps({  }) {
+  const { AIRecommendGoals, goals } = sampleGoals;
+
+  // TODO ADD API
+
   const data = {
-    plans: Plans.plans
+    AIRecommendGoals,
+    goals
   };
   return {
     props: { data },
