@@ -1,14 +1,24 @@
 import React from 'react';
-import { CommonStyled } from './CommonStyled';
+import Router from 'next/router';
+import { CommonStyled } from '../../contexts/styles/CommonStyled';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
 // import MenuIcon from '@mui/icons-material/Menu';
-import SignIn from '../sign/SignIn';
+// import SignIn from '../sign/SignIn';
 
 function Navbar({...props}: any) {
+  const logout = () => {
+    if(confirm("Are you sure?")) {
+      alert("ok...")
+      localStorage.removeItem("mockkong_data$$user_data")
+      Router.push("/signin");
+    }
+  }
+  
   return (
     <CommonStyled.Navbar className="Navbar">
       <Box sx={{ flexGrow: 1 }}>
@@ -27,7 +37,8 @@ function Navbar({...props}: any) {
               Logo
             </Typography>
 
-            <SignIn />
+            <Button color="inherit" onClick={logout}>Logout</Button>
+            {/* <SignIn /> */}
           </Toolbar>
         </AppBar>
       </Box>

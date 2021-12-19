@@ -1,13 +1,33 @@
+import { useEffect, useState } from 'react';
+import Router from 'next/router';
 import Layout from '../components/Layout';
 import Container from '../components/Container';
 
 export default function Index({ ...props }) {
+  const [view, setView] = useState(false);
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    setView(false);
+
+    const data = localStorage.getItem("mockkong_data$$user_data");
+    if (data) {
+      setUserData(JSON.parse(data));
+      setView(true);
+    } else {
+      Router.push("/signin");
+    }
+  }, []);
+
   return (
     <>
-      <Layout>
-        <Container>
-        </Container>
-      </Layout>
+      {view &&
+        <Layout>
+          <Container>
+            {userData?.name} 님 환영해요
+          </Container>
+        </Layout>
+      }
     </>
   )
 }

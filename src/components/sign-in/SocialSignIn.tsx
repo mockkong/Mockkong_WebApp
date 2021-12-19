@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Router from 'next/router';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
-import GoogleButton from './GoogleButton';
+import GoogleButton from './sns/GoogleButton';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -16,18 +17,30 @@ const style = {
   p: 4,
 };
 
-function SignIn({...props}: any) {
-  const [open, setOpen] = React.useState(false);
+function SocialSignIn({ ...props }) {
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const onSocial = (data: any) => {
     console.log('login', data);
+    if(data?.error) {
+      localStorage.setItem("mockkong_data$$user_data", JSON.stringify({ isLogin: false }));
+      alert("" + data?.details);
+    } else {
+      // TODO isLogin to 토큰인증방식
+      localStorage.setItem("mockkong_data$$user_data", JSON.stringify({ isLogin: true, ...data }));
+      Router.push('/dashboard');
+    }
   }
 
   return (
-    <>
-      <Button color="inherit" onClick={handleOpen}>Login</Button>
+    <div>
+      <Button type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 1, mb: 1 }}
+                 onClick={handleOpen}>SNS Login</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -38,8 +51,8 @@ function SignIn({...props}: any) {
           <GoogleButton onSocial={onSocial} />
         </Box>
       </Modal>
-    </>
+    </div>
   )
 }
 
-export default SignIn
+export default SocialSignIn;

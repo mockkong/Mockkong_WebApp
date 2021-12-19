@@ -2,9 +2,9 @@ import React from 'react';
 import { MockkongStyled } from './MockkongStyled';
 
 function Goals({ data }) {
-
   const getPlans = (plans: any) => {
     console.log(plans);
+
     return (
       <div className="Plans">
       {plans &&
