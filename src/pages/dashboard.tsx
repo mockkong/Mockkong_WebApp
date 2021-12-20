@@ -3,6 +3,7 @@ import Layout from '../components/Layout';
 import Container from '../components/Container';
 import * as Mockkong from '../components/mockkong';
 import sampleGoals from '../contexts/sampleData/sampleGoals.json';
+import RegisterGoal from '../components/mockkong/RegisterGoal';
 
 export default function Dashboard({ ...props }) {
   const { AIRecommendGoals, goals } = props.data;
@@ -15,17 +16,18 @@ export default function Dashboard({ ...props }) {
       <Container>
         <div>
           <Mockkong.UserProfile />
+          <RegisterGoal />
         </div>
         <div>
-          <Mockkong.AIRecommendGoals title="AI Recommend Goals" data={AIRecommendGoals}/>
-          <Mockkong.Goals data={goals}/>
+          <Mockkong.AIRecommendGoals title="AI Recommend Goals" data={AIRecommendGoals} />
+          <Mockkong.Goals data={goals} />
         </div>
       </Container>
     </Layout>
   )
 }
 
-export async function getStaticProps({  }) {
+export async function getStaticProps({ }) {
   const { AIRecommendGoals, goals } = sampleGoals;
 
   // TODO ADD API

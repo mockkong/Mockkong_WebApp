@@ -37,20 +37,47 @@ function SocialSignIn({ ...props }) {
       nickname: name,
     };
 
+    // for test info
+    const formData = new FormData();
+    formData.append('username', 'frontend');
+    formData.append('password', 'password');
+
     // get token
-    axios.post(_getUrl('/token'), { idToken: tokenId }, {
+    axios.post(_getUrl('/token'), formData, {
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/x-www-form-urlencoded'
       },
     }).then(function (response: any) {
       // console.log('then', response);
-      if(response?.status == '200') {
-        localStorage.setItem("mockkong_data$$user_data", JSON.stringify({ isLogin: true, ...response.data }));
-        Router.push('/dashboard');
+      if (response?.status == '200') {
+        const accessToken = response.data.access_token;
+
+        localStorage.setItem("mockkong_data$$access_token", accessToken);
+
+        // get token
+        axios.post(_getUrl('/user'), { idToken: tokenId }, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + accessToken
+          },
+        }).then(function (response: any) {
+          // console.log('then', response);
+          if (response?.status == '200') {
+            localStorage.setItem("mockkong_data$$user_data", JSON.stringify({
+              isLogin: true,
+              ...response.data
+            }));
+            Router.push('/dashboard');
+          }
+        }).catch(function (error) {
+          console.log('catch', error);
+        });
       }
     }).catch(function (error) {
       console.log('catch', error);
     });
+
+
   }
 
   const onSignInFailure = (err: any) => {
@@ -61,11 +88,11 @@ function SocialSignIn({ ...props }) {
 
   return (
     <div>
-      <Button type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 1, mb: 1 }}
-                 onClick={handleOpen}>SNS Login</Button>
+      <Button type="button"
+        fullWidth
+        variant="contained"
+        sx={{ mt: 1, mb: 1 }}
+        onClick={handleOpen}>SNS Login</Button>
       <Modal
         open={open}
         onClose={handleClose}

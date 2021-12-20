@@ -49,8 +49,8 @@ export default function SignInSide() {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
     }).then(function (response: any) {
-      // console.log('then', response);
-      if(response?.status == '200') {
+      console.log('then', response);
+      if (response?.status == '200') {
         localStorage.setItem("mockkong_data$$user_data", JSON.stringify({ isLogin: true, ...response.data }));
         Router.push('/dashboard');
       }
