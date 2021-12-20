@@ -10,10 +10,7 @@ function Goals({ data }) {
       {plans &&
         plans.map((plan)=>{
           return (
-            <div>
-                <div>
-                  {plan.id}
-                </div>
+            <div key={"Plan_" + plan.id} >
                 <div>
                   {plan.plan}
                 </div>
@@ -31,9 +28,9 @@ function Goals({ data }) {
       <div className="">
         {data && 
             data.map((goal)=> {
-              const { title, plans } = goal;
+              const { id, title, plans } = goal;
               return (
-                <div className="Goal">
+                <div key={"Goal_" + id} className="Goal">
                   <div>
                     {title}
                   </div>

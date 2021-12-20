@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import Router from 'next/router';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import GoogleButton from './sns/GoogleButton';
+
+const _getUrl = (api: string) => {
+  return process.env.NEXT_PUBLIC_SERVER_URL + api;
+}
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -22,16 +27,36 @@ function SocialSignIn({ ...props }) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const onSocial = (data: any) => {
-    console.log('login', data);
-    if(data?.error) {
-      localStorage.setItem("mockkong_data$$user_data", JSON.stringify({ isLogin: false }));
-      alert("" + data?.details);
-    } else {
-      // TODO isLogin to 토큰인증방식
-      localStorage.setItem("mockkong_data$$user_data", JSON.stringify({ isLogin: true, ...data }));
-      Router.push('/dashboard');
-    }
+  const onSignInSuccess = (response: any) => {
+    const { googleId, tokenId, profileObj: { email, name } } = response;
+    const data = {
+      tokenId: tokenId,
+      socialId: googleId,
+      socialType: 'google',
+      email,
+      nickname: name,
+    };
+
+    // get token
+    axios.post(_getUrl('/token'), { idToken: tokenId }, {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    }).then(function (response: any) {
+      // console.log('then', response);
+      if(response?.status == '200') {
+        localStorage.setItem("mockkong_data$$user_data", JSON.stringify({ isLogin: true, ...response.data }));
+        Router.push('/dashboard');
+      }
+    }).catch(function (error) {
+      console.log('catch', error);
+    });
+  }
+
+  const onSignInFailure = (err: any) => {
+    localStorage.setItem("mockkong_data$$user_data", JSON.stringify({ isLogin: false }));
+    alert("" + err?.details);
+    console.error(err);
   }
 
   return (
@@ -48,7 +73,7 @@ function SocialSignIn({ ...props }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <GoogleButton onSocial={onSocial} />
+          <GoogleButton onSuccess={onSignInSuccess} onFailure={onSignInFailure} />
         </Box>
       </Modal>
     </div>

@@ -1,4 +1,6 @@
 import * as React from 'react';
+import axios from 'axios';
+import Router from 'next/router';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,6 +15,10 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import SocialSignIn from '../components/sign-in/SocialSignIn';
+
+const _getUrl = (api: string) => {
+  return process.env.NEXT_PUBLIC_SERVER_URL + api;
+}
 
 function Copyright(props: any) {
   return (
@@ -32,11 +38,24 @@ const theme = createTheme();
 export default function SignInSide() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+    // for test info
+    const formData = new FormData(event.currentTarget);
+    formData.append('username', formData.get('username'));
+    formData.append('password', formData.get('password'));
+
+    // get token
+    axios.post(_getUrl('/token'), formData, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+    }).then(function (response: any) {
+      // console.log('then', response);
+      if(response?.status == '200') {
+        localStorage.setItem("mockkong_data$$user_data", JSON.stringify({ isLogin: true, ...response.data }));
+        Router.push('/dashboard');
+      }
+    }).catch(function (error) {
+      console.log('catch', error);
     });
   };
 
@@ -79,10 +98,11 @@ export default function SignInSide() {
                 margin="normal"
                 required
                 fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
+                id="username"
+                label="username"
+                type="text"
+                name="username"
+                autoComplete="username"
                 autoFocus
               />
               <TextField
@@ -90,7 +110,7 @@ export default function SignInSide() {
                 required
                 fullWidth
                 name="password"
-                label="Password"
+                label="password"
                 type="password"
                 id="password"
                 autoComplete="current-password"
