@@ -40,6 +40,7 @@ function RegisterGoal({ closeModal }: any) {
       left: '50%',
       top: '20%',
       bgcolor: 'white',
+      textAlign: 'left',
       border: '1px solid gray'
     }}>
       <CloseIcon onClick={closeModal}/>

@@ -13,7 +13,6 @@ import Button from '@mui/material/Button';
 function Navbar({...props}: any) {
   const logout = () => {
     if(confirm("Are you sure?")) {
-      alert("ok...")
       localStorage.removeItem("mockkong_data$$user_data")
       Router.push("/signin");
     }

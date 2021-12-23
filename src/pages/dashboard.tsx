@@ -5,28 +5,25 @@ import Layout from '../components/Layout';
 import Container from '../components/Container';
 import * as Mockkong from '../components/mockkong';
 import sampleGoals from '../contexts/sampleData/sampleGoals.json';
-import Button from '@mui/material/Button';
 
 export default function Dashboard({ ...props }) {
   const [AIRecommendGoals, setAIRecommendGoals] = useState(sampleGoals.AIRecommendGoals);
   const [myGoals, setMyGoals] = useState(sampleGoals.goals);
-  const [registerGoalOpen, setRegisterGoalOpen] = useState(false);
+  
 
   useEffect(() => {
+    getAIRecommendGoals();
     getMyGoals();
   },[])
 
   async function getMyGoals() {
-    const myGoalsData = await api.getMyGoals();
-    setMyGoals(myGoalsData);
+    const goals = await api.getMyGoals();
+    setMyGoals(goals);
   }
 
-  const openRegisterGoal = () => {
-    setRegisterGoalOpen(true)
-  }
-  const closeRegisterGoal = () => {
-    setRegisterGoalOpen(false);
-    getMyGoals();
+  async function getAIRecommendGoals() {
+    const goals = await api.getAIRecommendGoals();
+    setAIRecommendGoals(goals);
   }
 
   return (
@@ -36,16 +33,7 @@ export default function Dashboard({ ...props }) {
       </Head>
       <Container>
         <div>
-          <Mockkong.UserProfile />
-          <Button
-            type="button"
-            fullWidth
-            variant="contained"
-            onClick={openRegisterGoal}
-            sx={{ mt: 3 }}>
-            OK
-          </Button>
-          {registerGoalOpen && <Mockkong.RegisterGoal closeModal={closeRegisterGoal}/>}
+          <Mockkong.UserProfile getMyGoals={getMyGoals}/>
         </div>
         <div>
           <Mockkong.AIRecommendGoals title="AI Recommend Goals" data={AIRecommendGoals} />

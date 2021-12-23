@@ -36,29 +36,6 @@ function Copyright(props: any) {
 const theme = createTheme();
 
 export default function SignInSide() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    // for test info
-    const formData = new FormData(event.currentTarget);
-    formData.append('username', formData.get('username'));
-    formData.append('password', formData.get('password'));
-
-    // get token
-    axios.post(_getUrl('/token'), formData, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-    }).then(function (response: any) {
-      console.log('then', response);
-      if (response?.status == '200') {
-        localStorage.setItem("mockkong_data$$user_data", JSON.stringify({ isLogin: true, ...response.data }));
-        Router.push('/dashboard');
-      }
-    }).catch(function (error) {
-      console.log('catch', error);
-    });
-  };
-
   return (
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: '100vh' }}>
@@ -93,53 +70,8 @@ export default function SignInSide() {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="username"
-                label="username"
-                type="text"
-                name="username"
-                autoComplete="username"
-                autoFocus
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3 }}
-              >
-                Sign In
-              </Button>
+            <Box component="form" noValidate sx={{ mt: 1 }}>
               <SocialSignIn />
-              {/* <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link href="#" variant="body2">
-                    {"Don't have an account? Sign Up"}
-                  </Link>
-                </Grid>
-              </Grid> */}
               <Copyright sx={{ mt: 5 }} />
             </Box>
           </Box>

@@ -34,10 +34,9 @@ const registerGoal = async (formData: FormData) => {
     })
 
     if (response?.status == '200') {
-      console.log('goal then', response.data);
       return response.data;
     } else {
-      console.log('fail', response);
+      console.error('fail', response);
       return false;
     }
     
@@ -49,7 +48,6 @@ const registerGoal = async (formData: FormData) => {
 
 const getGoal = async (id: string) => {
   try {
-    console.log('getGoal id: ' + id)
     const response: any = await axios.get(_getUrl('/goal/' + id), {
       headers: {
         'Content-Type': 'application/json',
@@ -58,10 +56,9 @@ const getGoal = async (id: string) => {
     });
 
     if (response?.status == '200') {
-      console.log('goal then', response.data);
       return response.data;
     } else {
-      console.log('fail', response);
+      console.error('fail', response);
       return false;
     }
   } catch (error) {
@@ -70,10 +67,21 @@ const getGoal = async (id: string) => {
   }
 }
 
+const getAIRecommendGoals = async () => {
+  try {
+    const goal1 = await getGoal("61c074eccd6310442a08d4fb");
+    const goal2 = await getGoal("61c10428b336ceb175668bab");
+    const goal3 = await getGoal("61c4a71f4315b849b6912bd3");
+    return [goal1, goal2, goal3];
+  } catch (error) {
+    console.error('catch', error);
+    return [];
+  }
+}
+
 const getMyGoals = async () => {
   try {
     const userData = getUserData();
-    console.log(userData)
     const response: any = await axios.get(_getUrl('/user/' + userData._id + '/goals'), {
       headers: {
         'Content-Type': 'application/json',
@@ -82,10 +90,9 @@ const getMyGoals = async () => {
     });
 
     if (response?.status == '200') {
-      console.log('goal then', response.data);
       return response.data;
     } else {
-      console.log('fail', response);
+      console.error('fail', response);
       return false;
     }
   } catch (error) {
@@ -97,7 +104,8 @@ const getMyGoals = async () => {
 export {
   _getUrl,
   getUserData,
-  getGoal,
+  getAIRecommendGoals,
   getMyGoals,
   registerGoal,
+  getGoal,
 }
