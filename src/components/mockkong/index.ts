@@ -1,9 +1,11 @@
 import UserProfile from './UserProfile';
 import AIRecommendGoals from './AIRecommendGoals';
-import Goals from './Goals';
+import RegisterGoal from './RegisterGoal';
+import MyGoals from './MyGoals';
 
 export {
   UserProfile,
   AIRecommendGoals,
-  Goals
+  RegisterGoal,
+  MyGoals
 }

@@ -1,48 +1,34 @@
-import React from 'react';
-import axios from 'axios';
-import Router from 'next/router';
+import React, { useState } from 'react';
+import * as api from '../../app/api';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import CloseIcon from '@mui/icons-material/Close';
 
-const _getUrl = (api: string) => {
-  return process.env.NEXT_PUBLIC_SERVER_URL + api;
+type TGoal = {
+  _id: string;
+  userId: string;
+  goalName: string;
+  goalTags: string[];
+  period: number;
+  plan: string;
+  startedAt: string | Date;
 }
 
-function RegisterGoal({ ...props }: any) {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+function RegisterGoal({ closeModal }: any) {
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [goal, setGoal] = useState<TGoal>(null);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // for test info
     const formData = new FormData(event.currentTarget);
-    const userData = JSON.parse(localStorage.getItem('mockkong_data$$user_data'));
-    const accessToken = localStorage.getItem('mockkong_data$$access_token');
-
-    const data = {
-      "userId": userData?._id, // TODO get by localhost
-      "goalName": formData.get('goalName'),
-      "goalTags": [formData.get('goalTags').toString().split(",")],
-      "plan": formData.get('plan'),
-      "period": formData.get('period'),
-      "startedAt": "2021-12-20T12:18:52.787Z"
+    const { _id } = await api.registerGoal(formData);
+    if(_id) {
+      const result = await api.getGoal(_id);
+      setGoal(result);
+      setIsSuccess(true);
     }
-
-    console.log(data);
-    console.log(accessToken);
-
-    // get token
-    axios.post(_getUrl('/goal'), data, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + accessToken
-      },
-    }).then(function (response: any) {
-      console.log('goal then', response);
-      if (response?.status == '200') {
-      }
-    }).catch(function (error) {
-      console.log('catch', error);
-    });
   };
 
   return (
@@ -56,61 +42,91 @@ function RegisterGoal({ ...props }: any) {
       bgcolor: 'white',
       border: '1px solid gray'
     }}>
-      <Typography component="h5" variant="h5">
-        Create Goal
-      </Typography>
-      <TextField
-        margin="normal"
-        required
-        fullWidth
-        id="goalName"
-        label="goalName"
-        type="text"
-        name="goalName"
-        autoComplete="goalName"
-        autoFocus
-      />
-      <TextField
-        margin="normal"
-        required
-        fullWidth
-        id="goalTags"
-        label="goalTags"
-        type="text"
-        name="goalTags"
-        autoComplete="goalTags"
-        autoFocus
-      />
-      <TextField
-        margin="normal"
-        required
-        fullWidth
-        id="plan"
-        label="plan"
-        type="text"
-        name="plan"
-        autoComplete="plan"
-        autoFocus
-      />
-      <TextField
-        margin="normal"
-        required
-        fullWidth
-        id="period"
-        label="period"
-        type="number"
-        name="period"
-        autoComplete="period"
-        autoFocus
-      />
-      <Button
-        type="submit"
-        fullWidth
-        variant="contained"
-        sx={{ mt: 3 }}
-      >
-        Create Goal
-      </Button>
+      <CloseIcon onClick={closeModal}/>
+      {isSuccess 
+        ?
+        <div>
+          <Typography component="h5" variant="h5" sx={{ mb: 3 }}>Register Success!</Typography>
+          <div>
+            goalName: {goal?.goalName}
+          </div>
+          <div>
+            goalTags: {goal?.goalTags}
+          </div>
+          <div>
+            plan: {goal?.plan}
+          </div>
+          <div>
+            period: {goal?.period}
+          </div>
+          <div>
+            startedAt: {goal?.startedAt}
+          </div>
+          <Button
+            type="button"
+            fullWidth
+            variant="contained"
+            onClick={closeModal}
+            sx={{ mt: 3 }}>
+            OK
+          </Button>
+        </div>
+        :
+        <>
+          <Typography component="h5" variant="h5" sx={{ mb: 3 }}>Register Goal</Typography>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="goalName"
+            label="goalName"
+            type="text"
+            name="goalName"
+            autoComplete="goalName"
+            autoFocus
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="goalTags"
+            label="goalTags"
+            type="text"
+            name="goalTags"
+            autoComplete="goalTags"
+            autoFocus
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="plan"
+            label="plan"
+            type="text"
+            name="plan"
+            autoComplete="plan"
+            autoFocus
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="period"
+            label="period"
+            type="number"
+            name="period"
+            autoComplete="period"
+            autoFocus
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3 }}>
+            Create Goal
+          </Button>
+        </>
+      }
     </Box>
   )
 }

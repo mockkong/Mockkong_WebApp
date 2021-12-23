@@ -13,7 +13,7 @@ function AIRecommendGoals({ ...props }) {
             data.map((goal)=> {
               const { title, contents } = goal;
               return (
-                <div className="Goal">
+                <div key={"Goal_" + goal?.id} className="Goal">
                   <div>
                     {title}
                   </div>
