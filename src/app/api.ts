@@ -1,3 +1,4 @@
+import { TGoal } from "global-types";
 import axios from "axios";
 
 const _getUrl = (api: string) => {
@@ -17,12 +18,13 @@ const getAccessToken = () => {
 const registerGoal = async (formData: FormData) => {
   try {
     const userData = getUserData();
-    const data = {
+    const data: TGoal = {
       "userId": userData?._id, // TODO get by localhost
-      "goalName": formData.get('goalName'),
+      "goalName": formData.get('goalName').toString(),
       "goalTags": formData.get('goalTags').toString().split(","),
-      "plan": formData.get('plan'),
-      "period": formData.get('period'),
+      "plan": formData.get('plan').toString(),
+      "planDone": new Array(Number(formData.get('plan'))).fill(0),
+      "period": Number(formData.get('period')),
       "startedAt": new Date()
     }
 

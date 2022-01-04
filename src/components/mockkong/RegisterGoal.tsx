@@ -1,20 +1,12 @@
 import React, { useState } from 'react';
-import * as api from '../../app/api';
+import * as api from 'app/api';
+import { TGoal } from 'global-types';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CloseIcon from '@mui/icons-material/Close';
 
-type TGoal = {
-  _id: string;
-  userId: string;
-  goalName: string;
-  goalTags: string[];
-  period: number;
-  plan: string;
-  startedAt: string | Date;
-}
 
 function RegisterGoal({ closeModal }: any) {
   const [isSuccess, setIsSuccess] = useState(false);
@@ -28,6 +20,7 @@ function RegisterGoal({ closeModal }: any) {
       const result = await api.getGoal(_id);
       setGoal(result);
       setIsSuccess(true);
+      console.log(goal)
     }
   };
 
@@ -59,6 +52,9 @@ function RegisterGoal({ closeModal }: any) {
           </div>
           <div>
             period: {goal?.period}
+          </div>
+          <div>
+            repeat: {goal?.planDone?.length}
           </div>
           <div>
             startedAt: {goal?.startedAt}
@@ -117,6 +113,17 @@ function RegisterGoal({ closeModal }: any) {
             type="number"
             name="period"
             autoComplete="period"
+            autoFocus
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="repeat"
+            label="repeat"
+            type="number"
+            name="repeat"
+            autoComplete="repeat"
             autoFocus
           />
           <Button

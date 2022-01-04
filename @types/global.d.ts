@@ -1,5 +1,12 @@
 declare module 'global-types' {
-  export interface ITest {
-    test?: string;
+  export type TGoal = {
+    _id?: string;
+    userId: string;
+    goalName: string;
+    goalTags: string[];
+    period: number;
+    plan: string;
+    planDone: number[];
+    startedAt: string | Date;
   }
 }
