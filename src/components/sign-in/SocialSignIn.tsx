@@ -10,6 +10,8 @@ const _getUrl = (api: string) => {
 function SocialSignIn({ ...props }) {
 
   const onSignInSuccess = (response: any) => {
+    console.log('signin success! response: ', response);
+    
     const { googleId, tokenId, profileObj: { email, name } } = response;
     const data = {
       tokenId: tokenId,
