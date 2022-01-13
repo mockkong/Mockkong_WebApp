@@ -29,7 +29,7 @@ yarn dev
 ```
 
 ### view
-http://localhost:3000
+http://localhost:1000
 
 <br/>
 <br/>

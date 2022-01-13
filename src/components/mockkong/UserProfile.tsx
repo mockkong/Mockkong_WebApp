@@ -16,7 +16,7 @@ const style = {
   border: '1px solid lightgray',
 };
 
-function UserProfile({ openRegisterGoal, getMyGoals }: any) {
+function UserProfile({ openRegisterGoal, userData }: any) {
   return (
     <Box sx={style}>
       <AccountCircleIcon sx={{ fontSize: 90, mb: 2, color: 'gray' }} />

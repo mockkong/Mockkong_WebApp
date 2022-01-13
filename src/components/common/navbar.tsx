@@ -9,9 +9,6 @@ import Button from '@mui/material/Button';
 import { CommonStyled } from 'contexts/styles/CommonStyled';
 import MenuIcon from '@mui/icons-material/Menu';
 
-import Sidebar from 'components/Sidebar';
-// import SignIn from '../sign/SignIn';
-
 function Navbar({...props}: any) {
   const [isOpen, setIsOpen] = useState(true);
 

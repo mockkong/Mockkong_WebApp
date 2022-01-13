@@ -14,7 +14,7 @@ import Grid from '@mui/material/Grid';
 // import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import SocialSignIn from '../components/sign-in/SocialSignIn';
+import SocialSignIn from 'components/sign-in/SocialSignIn';
 
 const _getUrl = (api: string) => {
   return process.env.NEXT_PUBLIC_SERVER_URL + api;
