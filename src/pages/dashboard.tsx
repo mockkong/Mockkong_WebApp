@@ -32,6 +32,7 @@ export default function Dashboard({ ...props }) {
         <title>Next.js Blog Example</title>
       </Head>
       <Container>
+        <Mockkong.UserProfile />
         <div>
           <Mockkong.AIRecommendGoals title="AI Recommend Goals" data={AIRecommendGoals} />
           <Mockkong.MyGoals data={myGoals} />

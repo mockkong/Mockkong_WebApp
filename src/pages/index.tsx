@@ -24,7 +24,8 @@ export default function Index({ ...props }) {
       {view &&
         <Layout>
           <Container>
-            {userData?.name} 님 환영해요
+            {/* {userData?.name} 님 환영해요 */}
+            <a href="/dashboard">대시보드로 가기</a>
           </Container>
         </Layout>
       }

@@ -43,7 +43,7 @@ function Navbar({...props}: any) {
                 <MenuIcon />
               </IconButton>
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                Logo
+                Mockkong
               </Typography>
 
               <Button color="inherit" onClick={logout}>Logout</Button>
@@ -53,7 +53,7 @@ function Navbar({...props}: any) {
         </Box>
 
       </CommonStyled.Navbar>
-      <Sidebar drawerOpen={isOpen} drawerToggle={drawerToggle} />
+      {/* <Sidebar drawerOpen={isOpen} drawerToggle={drawerToggle} /> */}
     </>
   )
 }

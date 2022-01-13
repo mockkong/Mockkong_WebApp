@@ -10,8 +10,8 @@ const style = {
   textAlign: 'center',
   top: '100px',
   width: 230,
-  margin: '10px',
-  padding: '30px 10px',
+  margin: '40px 25px',
+  padding: '30px 15px',
   bgcolor: 'background.paper',
   border: '1px solid lightgray',
 };
