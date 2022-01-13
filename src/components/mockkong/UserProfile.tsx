@@ -16,17 +16,7 @@ const style = {
   border: '1px solid lightgray',
 };
 
-function UserProfile({ ...props }: any) {
-  const [registerGoalOpen, setRegisterGoalOpen] = useState(false);
-
-  const openRegisterGoal = () => {
-    setRegisterGoalOpen(true)
-  }
-  const closeRegisterGoal = () => {
-    setRegisterGoalOpen(false);
-    // getMyGoals();
-  }
-
+function UserProfile({ openRegisterGoal, getMyGoals }: any) {
   return (
     <Box sx={style}>
       <AccountCircleIcon sx={{ fontSize: 90, mb: 2, color: 'gray' }} />
@@ -51,7 +41,6 @@ function UserProfile({ ...props }: any) {
         sx={{ mt: 3 }}>
         Create Goal
       </Button>
-      {registerGoalOpen && <Mockkong.RegisterGoal closeModal={closeRegisterGoal}/>}
     </Box>
   )
 }

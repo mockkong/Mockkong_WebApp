@@ -7,9 +7,17 @@ import * as Mockkong from 'components/mockkong';
 import sampleGoals from 'contexts/sampleData/sampleGoals.json';
 
 export default function Dashboard({ ...props }) {
+  const [registerGoalOpen, setRegisterGoalOpen] = useState(false);
   const [AIRecommendGoals, setAIRecommendGoals] = useState(sampleGoals.AIRecommendGoals);
   const [myGoals, setMyGoals] = useState(sampleGoals.goals);
-  
+
+  const openRegisterGoal = () => {
+    setRegisterGoalOpen(true)
+  }
+  const closeRegisterGoal = () => {
+    setRegisterGoalOpen(false);
+    getMyGoals();
+  }
 
   useEffect(() => {
     getAIRecommendGoals();
@@ -32,12 +40,14 @@ export default function Dashboard({ ...props }) {
         <title>Next.js Blog Example</title>
       </Head>
       <Container>
-        <Mockkong.UserProfile />
+        <Mockkong.UserProfile getMyGoals={getMyGoals} openRegisterGoal={openRegisterGoal} />
         <div>
           <Mockkong.AIRecommendGoals title="AI Recommend Goals" data={AIRecommendGoals} />
           <Mockkong.MyGoals data={myGoals} />
         </div>
       </Container>
+
+      {registerGoalOpen && <Mockkong.RegisterGoal closeModal={closeRegisterGoal}/>}
     </Layout>
   )
 }

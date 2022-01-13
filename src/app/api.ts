@@ -74,6 +74,7 @@ const getAIRecommendGoals = async () => {
     const goal1 = await getGoal("61c074eccd6310442a08d4fb");
     const goal2 = await getGoal("61c10428b336ceb175668bab");
     const goal3 = await getGoal("61c4a71f4315b849b6912bd3");
+    console.log(goal1, goal2, goal3);
     return [goal1, goal2, goal3];
   } catch (error) {
     console.error('catch', error);

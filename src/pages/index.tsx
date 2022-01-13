@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Router from 'next/router';
-import Layout from '../components/Layout';
-import Container from '../components/Container';
+import Layout from 'components/Layout';
+import Container from 'components/Container';
 
 export default function Index({ ...props }) {
   const [view, setView] = useState(false);
