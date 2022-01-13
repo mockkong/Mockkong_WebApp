@@ -19,7 +19,7 @@ const registerGoal = async (formData: FormData) => {
   try {
     const userData = getUserData();
     const data: TGoal = {
-      "userId": userData?._id, // TODO get by localhost
+      "userId": userData?.userId, // TODO get by localhost
       "goalName": formData.get('goalName').toString(),
       "goalTags": formData.get('goalTags').toString().split(","),
       "plan": formData.get('plan').toString(),
@@ -71,11 +71,10 @@ const getGoal = async (id: string) => {
 
 const getAIRecommendGoals = async () => {
   try {
-    const goal1 = await getGoal("61c074eccd6310442a08d4fb");
-    const goal2 = await getGoal("61c10428b336ceb175668bab");
-    const goal3 = await getGoal("61c4a71f4315b849b6912bd3");
-    console.log(goal1, goal2, goal3);
-    return [goal1, goal2, goal3];
+    const goal1 = await getGoal("61e011dc5f9a235adc2561ca");
+    // const goal2 = await getGoal("61e011dc5f9a235adc2561ca");
+    // const goal3 = await getGoal("61e011dc5f9a235adc2561ca");
+    return [goal1];
   } catch (error) {
     console.error('catch', error);
     return [];
@@ -85,7 +84,49 @@ const getAIRecommendGoals = async () => {
 const getMyGoals = async () => {
   try {
     const userData = getUserData();
-    const response: any = await axios.get(_getUrl('/user/' + userData._id + '/goals'), {
+    const response: any = await axios.get(_getUrl('/user/' + userData.userId + '/goals'), {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + getAccessToken()
+      },
+    });
+
+    if (response?.status == '200') {
+      return response.data;
+    } else {
+      console.error('fail', response);
+      return false;
+    }
+  } catch (error) {
+    console.error('catch', error);
+    return false;
+  }
+}
+
+const deleteGoal = async (_id: string) => {
+  try {
+    const response: any = await axios.delete(_getUrl('/goal/' + _id), {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + getAccessToken()
+      },
+    });
+
+    if (response?.status == '200') {
+      return response.data;
+    } else {
+      console.error('fail', response);
+      return false;
+    }
+  } catch (error) {
+    console.error('catch', error);
+    return false;
+  }
+}
+
+const getUserDetail = async (userId: string) => {
+  try {
+    const response: any = await axios.get(_getUrl(`/user?user_id=${userId}`), {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + getAccessToken()
@@ -109,6 +150,8 @@ export {
   getUserData,
   getAIRecommendGoals,
   getMyGoals,
-  registerGoal,
   getGoal,
+  registerGoal,
+  deleteGoal,
+  getUserDetail,
 }

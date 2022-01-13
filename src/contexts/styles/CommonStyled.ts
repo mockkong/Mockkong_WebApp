@@ -7,5 +7,4 @@ export const CommonStyled = {
       backgroundColor: '$primary',
     }
   }),
-  
 };

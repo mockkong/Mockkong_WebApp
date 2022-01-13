@@ -1,4 +1,7 @@
 declare module 'global-types' {
+  // 0: pending, 1: done
+  export type TPlanDone = number[ 0 | 1 ];
+
   export type TGoal = {
     _id?: string;
     userId: string;
@@ -6,7 +9,7 @@ declare module 'global-types' {
     goalTags: string[];
     period: number;
     plan: string;
-    planDone: number[];
+    planDone: TPlanDone;
     startedAt: string | Date;
   }
 }

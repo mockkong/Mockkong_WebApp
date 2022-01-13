@@ -16,10 +16,6 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import SocialSignIn from 'components/sign-in/SocialSignIn';
 
-const _getUrl = (api: string) => {
-  return process.env.NEXT_PUBLIC_SERVER_URL + api;
-}
-
 function Copyright(props: any) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>

@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import axios from 'axios';
 import Router from 'next/router';
+import * as api from 'app/api';
 import GoogleButton from './sns/GoogleButton';
 
 const _getUrl = (api: string) => {
@@ -42,12 +43,20 @@ function SocialSignIn({ ...props }) {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + accessToken
           },
-        }).then(function (response: any) {
+        }).then(async function (response: any) {
           if (response?.status == '200') {
-            localStorage.setItem("mockkong_data$$user_data", JSON.stringify({
+            console.log(response.data)
+            const { _id }: any = response.data;
+            const { name, email} = await api.getUserDetail(_id);
+            const userData = {
               isLogin: true,
-              ...response.data
-            }));
+              userId: _id,
+              name, 
+              email
+            }
+            console.log('userData', userData)
+
+            localStorage.setItem("mockkong_data$$user_data", JSON.stringify(userData));
             Router.push('/dashboard');
           }
         }).catch(function (error) {

@@ -9,7 +9,6 @@ export default function Index({ ...props }) {
 
   useEffect(() => {
     setView(false);
-
     const data = localStorage.getItem("mockkong_data$$user_data");
     if (data) {
       setUserData(JSON.parse(data));
@@ -24,7 +23,6 @@ export default function Index({ ...props }) {
       {view &&
         <Layout>
           <Container>
-            {/* {userData?.name} 님 환영해요 */}
             <a href="/dashboard">대시보드로 가기</a>
           </Container>
         </Layout>

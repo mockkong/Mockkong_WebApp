@@ -16,6 +16,8 @@ nav,section {
 }
 body {
   line-height: 1;
+  background-color: #f8faff;
+  font-family: 'Helvetica', 'Arial', sans-serif;
 }
 ol,
 ul {
@@ -36,10 +38,13 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-input:focus {
+*:focus {
   outline: none;
 }
 a {
   color: inherit;
   text-decoration: none;
+}
+div {
+  box-sizing: border-box;
 }
