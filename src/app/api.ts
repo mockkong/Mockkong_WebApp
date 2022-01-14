@@ -5,6 +5,11 @@ const _getUrl = (api: string) => {
   return process.env.NEXT_PUBLIC_SERVER_URL + api;
 }
 
+const getUserId = () => {
+  const userData = JSON.parse(localStorage.getItem('mockkong_data$$user_data'));
+  return userData.userId;
+}
+
 const getUserData = () => {
   const userData = JSON.parse(localStorage.getItem('mockkong_data$$user_data'));
   return userData;
@@ -15,26 +20,23 @@ const getAccessToken = () => {
   return accessToken;
 }
 
-const registerGoal = async (formData: FormData) => {
+const registerGoal = async (data: TGoal) => {
   try {
-    const userData = getUserData();
-    const data: TGoal = {
-      "userId": userData?.userId, // TODO get by localhost
-      "goalName": formData.get('goalName').toString(),
-      "goalTags": formData.get('goalTags').toString().split(","),
-      "plan": formData.get('plan').toString(),
-      "planDone": new Array(Number(formData.get('plan'))).fill(0),
-      "period": Number(formData.get('period')),
-      "startedAt": new Date()
-    }
+    const userId = await getUserId();
+    if(!userId || !data) return false;
 
-    const response: any = await axios.post(_getUrl('/goal'), data, {
+    const goalData: TGoal = { 
+      ...data,
+      "userId": userId, 
+    }
+    console.log('registerGoal goalData', goalData);
+    
+    const response: any = await axios.post(_getUrl('/goal'), goalData, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + getAccessToken()
       },
     })
-
     if (response?.status == '200') {
       return response.data;
     } else {

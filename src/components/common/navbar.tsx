@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
+import LogoutIcon from '@mui/icons-material/Logout';
 import Button from '@mui/material/Button';
 import { CommonStyled } from 'contexts/styles/CommonStyled';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -22,6 +23,10 @@ function Navbar({...props}: any) {
       Router.push("/signin");
     }
   }
+
+  const goHome = () => {
+    Router.push("/");
+  }
   
   return (
     <>
@@ -29,6 +34,8 @@ function Navbar({...props}: any) {
         <Box sx={{ flexGrow: 1 }}>
           <AppBar position="static" >
             <Toolbar>
+
+              {/* Menu Icon */}
               <IconButton
                 size="large"
                 edge="start"
@@ -39,12 +46,14 @@ function Navbar({...props}: any) {
               >
                 <MenuIcon />
               </IconButton>
-              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+
+              {/* Logo */}
+              <Typography variant="h6" component="div" sx={{ flexGrow: 1, cursor: 'pointer' }} onClick={goHome}>
                 Mockkong
               </Typography>
 
+              {/* Logout */}
               <Button color="inherit" onClick={logout}>Logout</Button>
-              {/* <SignIn /> */}
             </Toolbar>
           </AppBar>
         </Box>

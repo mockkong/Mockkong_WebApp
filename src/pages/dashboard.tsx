@@ -1,24 +1,24 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
+// import { BrowserView, MobileView } from 'react-device-detect';
 import * as api from 'app/api';
 import Layout from 'components/Layout';
 import Container from 'components/Container';
 import * as Mockkong from 'components/mockkong';
 import sampleGoals from 'contexts/sampleData/sampleGoals.json';
 import { MockkongStyled } from 'components/mockkong/MockkongStyled';
-import { itemData } from '../contexts/sampleData/itemData'
-import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
+import { cardData } from '../contexts/sampleData/cardData';
+import { TGoal } from 'global-types';
 
 export default function Dashboard({ ...props }) {
   const [registerGoalOpen, setRegisterGoalOpen] = useState(false);
-  const [AIRecommendGoals, setAIRecommendGoals] = useState(sampleGoals.AIRecommendGoals);
+  const [AIRecommendGoals, setAIRecommendGoals] = useState(cardData);
   const [myGoals, setMyGoals] = useState(sampleGoals.goals);
   const [userData, setUserData] = useState();
 
   useEffect(() => {
     getUserData();
-    getAIRecommendGoals();
+    // getAIRecommendGoals();
     getMyGoals();
   },[])
 
@@ -47,6 +47,18 @@ export default function Dashboard({ ...props }) {
     setAIRecommendGoals(goals);
   }
 
+  async function registerGoal(goalData: TGoal) {
+    console.log('goalData', goalData);
+    const result = await api.registerGoal(goalData);
+    console.log('result', result);
+    getMyGoals();
+  }
+
+  const handleGoalDelete = async (goalId: string) => {
+    const result = await api.deleteGoal(goalId);
+    getMyGoals();
+  }
+
   return (
     <Layout>
       <Head>
@@ -55,24 +67,11 @@ export default function Dashboard({ ...props }) {
 
       <Container>
         <Mockkong.UserProfile userData={userData} className="UserProfile" openRegisterGoal={openRegisterGoal} />
+
         <MockkongStyled.DashboardGoals className='DashboardGoals'>
-          <Mockkong.AIRecommendGoals title="AI Recommend Goals" data={AIRecommendGoals} />
-          <Mockkong.MyGoals data={myGoals} />
-
-          {/* <ImageList variant="masonry" cols={3} gap={8}>
-            {itemData.map((item) => (
-              <ImageListItem key={item.img}>
-                <img
-                  src={`${item.img}?w=248&fit=crop&auto=format`}
-                  srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                  alt={item.title}
-                  loading="lazy"
-                />
-              </ImageListItem>
-            ))}
-          </ImageList> */}
+          <Mockkong.AIRecommendGoals data={AIRecommendGoals} registerGoal={registerGoal}/>
+          <Mockkong.MyGoals data={myGoals} handleGoalDelete={handleGoalDelete} />
         </MockkongStyled.DashboardGoals>
-
       </Container>
 
       {registerGoalOpen && <Mockkong.RegisterGoal closeModal={closeRegisterGoal}/>}

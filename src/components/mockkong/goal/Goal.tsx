@@ -3,32 +3,23 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { MockkongStyled } from '../MockkongStyled';
-import * as api from 'app/api';
 import Plans from './Plans';
 
-const Goal = ({ goal, showPlan, readonly }) => {
+const Goal = ({ goal, showPlan, handleDelete }) => {
   const { _id, userId, goalName, goalTags, period, plan, planDone, startedAt }: TGoal = goal;
 
-  const handleGoalClick = () => {
-    console.log('handleGoalClick id:' + _id);
-  }
-
-  const handleDelete = async () => {
-    console.log('handleDelete id:' + _id);
-    const result = await api.deleteGoal(_id);
-    console.log('handleDelete result:', result);
-  }
-
   return (
-    <MockkongStyled.Goal className="Goal" onClick={handleGoalClick}>
-      {!readonly &&
+    <MockkongStyled.Goal className="Goal">
+      {handleDelete &&
         <IconButton className='deleteGoalIcon' aria-label="delete" size="small">
-          <DeleteForeverIcon onClick={handleDelete} />
+          <DeleteForeverIcon onClick={() => handleDelete(_id)} />
         </IconButton>
       }
+      <span style={{ float: 'right', fontSize: '14px', padding: '10px' }}>시작일: {startedAt?.toString().substring(0, 10)}</span>
+
       <Typography component="h6" variant="h6" sx={{ mb: 1 }}>{goalName}</Typography>
       
-      {showPlan && <Plans goalId={_id} planDone={planDone} />}
+      {showPlan && <Plans goal={goal} />}
 
       <MockkongStyled.Tags className="Tags">
         { goal.goalTags && goal.goalTags.map((tag: string) => 
@@ -37,6 +28,8 @@ const Goal = ({ goal, showPlan, readonly }) => {
           </IconButton>
         )}
       </MockkongStyled.Tags>
+
+      
     </MockkongStyled.Goal>
   )
 }

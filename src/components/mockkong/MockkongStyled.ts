@@ -12,38 +12,22 @@ export const MockkongStyled = {
     'h3': {
       marginBottom: '10px',
     },
+
     'div.Goal_Card': {
       display: 'flex',
       '-webkit-flex-wrap': 'wrap',
       '-webkit-justify-content': 'space-between',
       'flexWrap': 'wrap',
-  
-      'div.Goal': {
-        backgroundColor: '$primary',
-        width: '180px',
-        height: '240px',
-        color: 'white',
-        padding: '15px',
-        marginRight: '20px',
-        borderRadius: '20px',
-        boxSizing: 'border-box',
-    
-        'div': {
-          color: 'white',
-          flex: '1',
-        }
-      },
-
 
       '.card': {
         backgroundColor: '#ffffff',
         boxShadow: '200px 0 50px rgba(0, 0, 0, 0.5) inset',
-        height: '250px',
+        height: '400px',
         position: 'relative',
         transform: 'perspective(2000px)',
         transformStyle: 'preserve-3d',
         transition: 'box-shadow 1s ease, transform 1s ease, z-index 1s ease',
-        width: '200px',
+        width: '160px',
 
         '&:hover': {
           boxShadow: '20px 0 50px rgba(0, 0, 0, 0.5) inset',
@@ -56,7 +40,6 @@ export const MockkongStyled = {
         },
 
         '.img-box': {
-          border: '1px solid #83f7da',
           height: '100%',
           position: 'relative',
           transformOrigin: 'left',
@@ -104,9 +87,7 @@ export const MockkongStyled = {
       minHeight: '120px',
       padding: '15px',
       marginBottom: '15px',
-      backgroundColor: '#2c7388',
-      borderRadius: '0px 20px 0px 20px',
-      boxSizing: 'border-box',
+      backgroundColor: 'rgba(44, 115, 136, 0.8)',
   
       'div': {
         color: 'white',
@@ -135,8 +116,29 @@ export const MockkongStyled = {
   }),
 
   Plans: styled('div', {
-    display: 'inline-block',
-    
+    display: 'block',
+
+    '.MuiBox-root': {
+      width: '60px',
+      textAlign: 'center',
+    },
+
+    '.MuiBox-root + .MuiBox-root': {
+      marginLeft: '40px',
+      
+      '&>button:before': {
+        content: '',
+        position: 'absolute',
+        left: '0px',
+        width: '40px',
+        marginLeft: '-40px',
+        display: 'inline-block',
+        height: '3px',
+        backgroundColor: 'white',
+        verticalAlign: 'middle'
+      }
+    },
+
     button: {
       cursor: 'pointer',
       width: '60px',
@@ -149,28 +151,14 @@ export const MockkongStyled = {
       border: '1px solid white',
 
       '&:first-child.start': {
-        backgroundColor: 'rgba(117, 247, 214, 1)',
+        cursor: 'default',
+        fontWeight: 'bold',
+        backgroundColor: 'white',
       },
 
       '&.done, &:hover': {
         backgroundColor: '#75f7d6b3',
       },
-    },
-    
-    'button + button': {
-      marginLeft: '20px',
-      
-      '&:before': {
-        content: '',
-        position: 'absolute',
-        left: '0px',
-        width: '20px',
-        marginLeft: '-20px',
-        display: 'inline-block',
-        height: '2px',
-        backgroundColor: 'white',
-        verticalAlign: 'middle'
-      }
     },
   }), 
 
