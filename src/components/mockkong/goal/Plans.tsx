@@ -1,17 +1,32 @@
 
-import { TGoal } from 'global-types';
+import { TPlans, TGoal, TPlan } from 'global-types';
 import { MockkongStyled } from '../MockkongStyled';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
 
+
 const planBoxStyle = {
-  display: 'inline-flex', 
-  flexDirection: 'column', 
+  display: 'inline-flex',
+  flexDirection: 'column',
   verticalAlign: 'top'
 }
 
-const Plans = ({ goal }) => {
+const getPlanText = (plan: TPlan) => {
+  console.log(plan)
+  if (plan === 0) {
+    return <span>Done</span>
+  } else {
+    return <span>Ok</span>
+  }
+}
+
+const Plans = ({ goal }: TPlans) => {
   const { _id, planDone, plan, startedAt }: TGoal = goal;
+
+  const handlePlanClick = (plan: TPlan) => {
+    console.log(plan)
+  }
+
   return (
     <MockkongStyled.Plans>
       <Box sx={planBoxStyle}>
@@ -20,19 +35,20 @@ const Plans = ({ goal }) => {
         </IconButton>
       </Box>
 
-      { planDone && planDone.length > 0 &&
-          planDone.map((done: 0 | 1, i) => (
-            <Box sx={planBoxStyle}>
-              <IconButton 
-                key={`Goal_${_id}_Plan_${i}`}
-                size="small" className={`${done===0 ? '' : 'done'}`}>
-                { done === 0 && <span>DONE</span> }
-                { done===1 && <span>OK</span> }
-              </IconButton>
-              <Box className='Plan' sx={{ textAlign: 'center' }}>
-                {plan}
-              </Box>
+      {planDone && planDone.length > 0 &&
+        planDone.map((plan: 0 | 1, i) => (
+          <Box sx={planBoxStyle}>
+            <IconButton
+              key={`Goal_${_id}_Plan_${i}`}
+              size="small" className={`${plan === 0 ? '' : 'done'}`}
+              onClick={() => handlePlanClick(plan)}
+            >
+              Done
+            </IconButton>
+            <Box className='Plan' sx={{ textAlign: 'center' }}>
+              {plan}
             </Box>
+          </Box>
         ))
       }
     </MockkongStyled.Plans>
